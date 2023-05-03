@@ -1,22 +1,27 @@
-name: Analyze Code
-on: [pull_request]
+name: Unit Tests
+on:
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  analyze:
-    name: Run Analyze Code
+  drive:
+    name: Validate Unit Tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-
+      
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: "3.3.7"
           channel: "stable"
 
-      - name: Update dependencies
+      - name: Setup Flutter
         run: |
           flutter pub get
-      - name: Analyze Code
-        run: flutter analyze
+
+      - name: Run tests
+        run: |
+          flutter test
